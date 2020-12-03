@@ -1,0 +1,15 @@
+version: "3"
+services:
+  queuemonservice:
+    image: queuemonitor-service:latest
+    ports:
+      - "3010:3000"
+    environment:
+      GENESYS_CLIENT_ID: ${GENESYS_CLIENT_ID}
+      GENESYS_CLIENT_SECRET: ${GENESYS_CLIENT_SECRET}
+      DEBUG_LEVEL: "debug" #debug, info, trace, error
+  redis:
+    image: redis:latest
+    command: [sh, -c, "rm -f /data/dump.rdb && redis-server"] # disable persistence
+    ports:
+      - 6379:6379
